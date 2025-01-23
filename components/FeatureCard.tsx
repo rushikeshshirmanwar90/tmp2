@@ -19,8 +19,9 @@ const FeaturesSection = () => {
     }
 
     return () => {
-      if (sectionRef.current) {
+      if (sectionRef.current && observer) {
         observer.unobserve(sectionRef.current);
+        observer.disconnect();
       }
     };
   }, []);
@@ -100,8 +101,8 @@ const FeaturesSection = () => {
     },
   ];
 
-  function setActiveFeature(index: number): void {
-    throw new Error("Function not implemented.");
+  function setActiveFeature(): void {
+    console.log(`A feature is now active`);
   }
 
   return (
@@ -112,9 +113,8 @@ const FeaturesSection = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div
-          className={`text-center max-w-3xl mx-auto mb-16 transition-all duration-700 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
+          className={`text-center max-w-3xl mx-auto mb-16 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+            }`}
         >
           <h2 className="text-4xl font-bold text-gray-900 mb-6">
             Powerful Features for Modern AR Experiences
@@ -131,14 +131,13 @@ const FeaturesSection = () => {
             <div
               key={feature.title}
               className={`relative bg-white rounded-2xl p-8 shadow-lg transition-all duration-500 transform cursor-pointer
-                ${
-                  isVisible
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-10"
+                ${isVisible
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-10"
                 }
                 ${`delay-[${index * 100}ms]`}
                 hover:-translate-y-2 hover:shadow-xl`}
-              onMouseEnter={() => setActiveFeature(index)}
+              onMouseEnter={() => setActiveFeature()}
             >
               <div className="flex items-center mb-6">
                 <div className="p-3 rounded-lg bg-blue-50">
